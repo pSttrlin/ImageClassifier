@@ -40,8 +40,11 @@ IMAGES_PER_STEP = Anzahl der Bilder die gleichzeitig beim Trainieren in den Spei
 Dataset.py
 Lädt die Daten aus TESTING_PATH und TRAINING_PATH und bereitet sie auf
 DATA_TRAIN = Lädt nur Trainingsdaten
+
 DATA_TEST = Lädt nur Testdaten
+
 DATA_BOTH = Lädt alle Daten
+
 
 model.py
 Hilfsfunktionen zum erstellen des Models
