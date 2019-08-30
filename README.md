@@ -1,5 +1,7 @@
 <h1>Werbung in Zeitungen erkennen</h1>
 
+Tensorflow mit Keras backend. Simples CNN mit 2 Convolutional Layern und 2 Fully Connected Layern
+
 <h3>config.py</h3>
 
 Enthält Konstanten für das Model, zum Lernen, und für die Trainings- / Testdaten
