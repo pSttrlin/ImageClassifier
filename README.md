@@ -1,6 +1,6 @@
-Werbung in Zeitungen erkennen
+<h1>Werbung in Zeitungen erkennen</h1>
 
-config.py
+<h3>config.py</h3>
 
 Enthält Konstanten für das Model, zum Lernen, und für die Trainings- / Testdaten
 
@@ -39,7 +39,7 @@ TRAINING_PATH = Pfad zu den Trainingsbilder (Selbe Struktur wie TESTING_PATH)
 IMAGES_PER_STEP = Anzahl der Bilder die gleichzeitig beim Trainieren in den Speicher geladen werden
 
 
-Dataset.py
+<h3>Dataset.py</h3>
 
 Lädt die Daten aus TESTING_PATH und TRAINING_PATH und bereitet sie auf
 
@@ -50,17 +50,17 @@ DATA_TEST = Lädt nur Testdaten
 DATA_BOTH = Lädt alle Daten
 
 
-model.py
+<h3>model.py</h3>
 
 Hilfsfunktionen zum erstellen des Models
 
 
-predict.py
+<h3>predict.py</h3>
 
 Lädt Testdaten und sagt jedes Bild voraus, gibt am Ende die Trefferquote aus
 
 
-train.py
+<h3>train.py</h3>
 
 Erstellt ein neues Model und trainiert dieses mit allen Trainingsdaten
 
