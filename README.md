@@ -1,6 +1,16 @@
 <h1>Werbung in Zeitungen erkennen</h1>
 
+
 Tensorflow mit Keras backend. Simples CNN mit 2 Convolutional Layern und 2 Fully Connected Layern
+Getestet auf Windows 10 und Python 3.6.0
+
+Dependencies:
+
+    pip install tensorflow==1.14
+  
+    pip install opencv-python
+  
+    pip install numpy
 
 <h3>config.py</h3>
 
