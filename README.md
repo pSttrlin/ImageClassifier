@@ -1,7 +1,9 @@
 Werbung in Zeitungen erkennen
 
 config.py
+
 Enthält Konstanten für das Model, zum Lernen, und für die Trainings- / Testdaten
+
 Alle Ordner müssen existieren, und werden nicht erstellt
 
 NUM_CLASSES = Anzahl der möglichen ausgaben (2 für Werbung und Nicht Werbung)
@@ -38,7 +40,9 @@ IMAGES_PER_STEP = Anzahl der Bilder die gleichzeitig beim Trainieren in den Spei
 
 
 Dataset.py
+
 Lädt die Daten aus TESTING_PATH und TRAINING_PATH und bereitet sie auf
+
 DATA_TRAIN = Lädt nur Trainingsdaten
 
 DATA_TEST = Lädt nur Testdaten
@@ -47,11 +51,18 @@ DATA_BOTH = Lädt alle Daten
 
 
 model.py
+
 Hilfsfunktionen zum erstellen des Models
 
+
 predict.py
+
 Lädt Testdaten und sagt jedes Bild voraus, gibt am Ende die Trefferquote aus
 
+
 train.py
+
 Erstellt ein neues Model und trainiert dieses mit allen Trainingsdaten
+
 Speichert alle {IMAGES_PER_STEP} Bilder das Model
+
