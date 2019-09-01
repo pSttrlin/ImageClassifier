@@ -78,3 +78,8 @@ Erstellt ein neues Model und trainiert dieses mit allen Trainingsdaten
 
 Speichert alle {IMAGES_PER_STEP} Bilder das Model
 
+Speichert den Trainingsprozess mit Tensorboard
+
+        tensorboard --logdir logs
+
+Startet tensorboard auf dem Port 6006 (http://localhost:6006),  um den Trainingsprozess in Echtzeit zu verfolgen
