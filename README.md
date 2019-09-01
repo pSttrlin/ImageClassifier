@@ -35,8 +35,7 @@ Alle Ordner müssen existieren, und werden nicht erstellt
 
 --num_epochs = Anzahl der Epochen
 
---tensorboard_dir = Ordner um Tensoboard Dateien zu speichern
-
+--tensorboard_logdir = Ordner um Tensoboard Dateien zu speichern
 
 --image_width = Breite der Bilder
 
