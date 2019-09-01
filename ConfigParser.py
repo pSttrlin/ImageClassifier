@@ -1,5 +1,4 @@
 import argparse
-import config
 import sys
 
 class Parser():
