@@ -1,12 +1,14 @@
 import tensorflow as tf
 import os
 import sys
-from model import standard_cnn, save_graph
+from CustomSaveCallback import CustomSaveCallback
+from model import standard_cnn, visualize_layer
 from Dataset import Dataset, DATA_TRAIN
 from ConfigParser import Parser
 
 def train():
     opt = Parser().parse()
+
     print("Loading dataset")
     dataset = Dataset(opt, data_mode=DATA_TRAIN)
 
@@ -23,13 +25,12 @@ def train():
                                                           write_graph=True,
                                                           write_images=True,
                                                           update_freq="batch")
-    for epoch in range(opt.num_epochs):
-        print("Training epoch {0} / {1}".format(epoch+1, opt.num_epochs))
-
-        for images, labels in dataset.batch_iterator(): #Train model in steps to avoid loading all images to memory
-            model.fit(images, labels, batch_size=opt.batch_size, epochs=1, callbacks=[tensorboard_callback])
-            model.save(os.path.join(opt.model_dir, "cnn_epoch_{0}.hf".format(epoch)))
-        model.save(os.path.join(opt.model_dir, "cnn_epoch_{0}.h5".format(epoch)))
+    save_callback = CustomSaveCallback(opt.model_dir + "cnn")
+    model.fit_generator(generator=dataset,
+                        steps_per_epoch=(len(dataset.training_files) // opt.batch_size),
+                        epochs=opt.num_epochs,
+                        verbose=1,
+                        callbacks=[tensorboard_callback, save_callback])
     print(model.summary())
     print ("Model trained and saved to " + opt.model_dir)
 

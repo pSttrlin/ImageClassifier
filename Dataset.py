@@ -4,18 +4,19 @@ import glob
 import os
 import random
 import cv2
+from tensorflow.keras.utils import Sequence
 
 DATA_TRAIN = 0
 DATA_TEST = 1
 DATA_BOTH = 2
+AD = 1
+NOAD = 0
 
-class Dataset():
+class Dataset(Sequence):
 
     training_files = []
     testing_files = []
     num_batches = 0
-    AD = 1
-    NOAD = 0
 
     def __init__(self, opt, data_mode = DATA_BOTH):
 
@@ -60,94 +61,31 @@ class Dataset():
         random.shuffle(self.training_files)
         random.shuffle(self.testing_files)
 
-    def batch_iterator(self):
-        return self.BatchIterator(self)
+    def __len__(self):
+        return int(len(self.training_files) / self.opt.batch_size)
+
+    def __getitem__(self, idx):
+        length = (idx + 1) * self.opt.batch_size
+        if len(self.training_files[idx * self.opt.batch_size:]) < self.opt.batch_size:
+          length = len(self.training_files[idx * self.opt.batch_size:])
+
+        batch_x = []
+        batch_y = []
+        for i in range(idx * self.opt.batch_size, length):
+            image, label = self.training_files[i]
+            image = self.read_image(image)
+            image = self.process_image(image)
+            batch_x.append(image)
+            batch_y.append(label)
+        batch_x = np.asarray(batch_x)
+        batch_y = np.asarray(batch_y)
+        return (batch_x, batch_y)
+
 
     def read_image(self, image):
         return cv2.imread(image, cv2.IMREAD_GRAYSCALE)
 
     def process_image(self, img):
         img_res = cv2.resize(img, (self.opt.image_width, self.opt.image_height))
+        img_res = np.reshape(img_res, [self.opt.image_width, self.opt.image_height, self.opt.num_channels])
         return img_res / 255.0
-
-    def __iter__(self):
-        for _ in range(len(self.testing_files)):
-            yield self.get_sample()
-
-    def get_sample(self):
-        (image_file, label) = self.testing_files.pop()
-        image_data = self.read_image(image_file)
-        image_data = self.process_image(image_data)
-        image_data = image_data.reshape(1, self.opt.image_width, self.opt.image_height, self.opt.num_channels)
-        return {
-            "file": image_file,
-            "data": image_data,
-            "label": label
-            }
-
-    def get_batch(self):
-        images = []
-        labels = []
-        for index in range(self.opt.batch_size):
-            img, label = self.training_files.pop()
-            img = self.read_image(img)
-            img = self.process_image(img)
-            images.append(img)
-            labels.append(label)
-        images = np.asarray(images)
-        images = images.reshape(self.opt.batch_size, self.opt.image_width, self.opt.image_height, self.opt.num_channels)
-        labels = np.asarray(labels)
-        return (images, labels)
-
-    def get_train_data(self):
-        images = []
-        labels = []
-        for img, label in self.training_files:
-            img = self.read_image(img)
-            img = self.process_image(img)
-            images.append(img)
-            labels.append(label)
-            if len(images) > 300: break
-        images = np.asarray(images)
-        images = images.reshape(len(images), 1000, 1500, 1)
-        labels = np.asarray(labels)
-        return (images, labels)
-
-    def get_training_data(self, size):
-        images = []
-        labels = []
-        for _ in range(size):
-            img, label = self.training_files.pop()
-            img = self.read_image(img)
-            img = self.process_image(img)
-            images.append(img)
-            labels.append(label)
-        images = np.asarray(images)
-        images = images.reshape(len(images), 1000, 1500, 1)
-        labels = np.asarray(labels)
-        return (images, labels)
-
-    def get_test_data(self):
-        images = []
-        labels = []
-        for img, label in self.testing_files:
-            img = self.read_image(img)
-            img = self.process_image(img)
-            images.append(img)
-            labels.append(label)
-        images = np.asarray(images)
-        images = images.reshape(len(images), 1000, 1500, 1)
-        labels = np.asarray(labels)
-        return (images, labels)
-
-    class BatchIterator():
-        def __init__(self, opt, dataset):
-            self.dataset = dataset
-            self.opt = opt
-
-        def __iter__(self):
-            num_batches = int(len(self.dataset.training_files) / self.self.opt.images_per_step)
-            for _ in range(num_batches):
-                yield self.dataset.get_training_data(self.self.opt.images_per_step)
-            lastBatch = self.dataset.get_training_data(len(self.dataset.training_files))
-            yield lastBatch
