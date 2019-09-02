@@ -12,43 +12,46 @@ Dependencies:
   
     pip install numpy
 
-<h3>config.py</h3>
+<h3>ConfigParser.py</h3>
 
-Enthält Konstanten für das Model, zum Lernen, und für die Trainings- / Testdaten
+Parst Argumente
 
 Alle Ordner müssen existieren, und werden nicht erstellt
 
-NUM_CLASSES = Anzahl der möglichen ausgaben (2 für Werbung und Nicht Werbung)
+--config = Optionale config Datei die Argumente beinhaltet (Standart=defaultConfig.cfg)
 
-NUM_CONV_LAYERS = Anzahl der convolutional layers im Model
+--num_classes = Anzahl der möglichen ausgaben (2 für Werbung und Nicht Werbung)
 
-NUM_FULLY_LAYERS = Anzahl der fully connected layers im Model
+--num_conv_layers = Anzahl der convolutional layers im Model
 
-MODEL_PATH = Pfad zum gespeichertem Model das in predict.py geladen werden soll
+--num_fully_layers = Anzahl der fully connected layers im Model
 
-MODEL_DIR = Ordner in dem models gespeichert werden sollen
+--model_path = Pfad zum gespeichertem Model das in predict.py geladen werden soll
 
-
-LR = Learning rate
-
-NUM_EPOCHS = Anzahl der Epochen
-
-TENSORBOARD_LOGDIR = Ordner um Tensoboard Dateien zu speichern
+--model_dir = Ordner in dem models gespeichert werden sollen
 
 
-IMAGE_SIZE = Größe der Bilder
+--lr = Learning rate
 
-BATCH_SIZE = Batch size zum Trainieren
+--num_epochs = Anzahl der Epochen
 
-NUM_CHANNELS = Anzahl der Farben in Bildern (1 = Schwarz Weiß, 3 = RGB)
+--tensorboard_logdir = Ordner um Tensoboard Dateien zu speichern
 
-SHUFFLE = Trainingsdaten vermischen?
+--image_width = Breite der Bilder
 
-TESTING_PATH = Pfad zu den Testbildern (Sollte einen Ordner 'Ads' und 'Other' enthalten die dann jeweils .jpeg Bilder mit Werbung und ohne beinhalten (Oder in Sub-Ordnern))
+--image_height = Höhe der Bilder
 
-TRAINING_PATH = Pfad zu den Trainingsbilder (Selbe Struktur wie TESTING_PATH)
+--batch_size = Batch size zum Trainieren
 
-IMAGES_PER_STEP = Anzahl der Bilder die gleichzeitig beim Trainieren in den Speicher geladen werden
+--num_channels = Anzahl der Farben in Bildern (1 = Schwarz Weiß, 3 = RGB)
+
+--shuffle = Trainingsdaten vermischen?
+
+--testing_path = Pfad zu den Testbildern (Sollte einen Ordner 'Ads' und 'Other' enthalten die dann jeweils .jpeg Bilder mit Werbung und ohne beinhalten (Oder in Sub-Ordnern))
+
+--training_path = Pfad zu den Trainingsbilder (Selbe Struktur wie TESTING_PATH)
+
+--images_per_step = Anzahl der Bilder die gleichzeitig beim Trainieren in den Speicher geladen werden
 
 
 <h3>Dataset.py</h3>
